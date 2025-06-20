@@ -3,6 +3,7 @@ body {
   margin: 40px;
   background-color: #fdfdfd;
   color: #222;
+  display: center;
 }
 nav a {
   margin: 0 10px;
