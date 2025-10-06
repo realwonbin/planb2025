@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>전국 시계탑 아카이브</title>
+<title>전국 시계탑 아카이브 · Portfolio</title>
 <style>
   :root {
     --bg: #0e0e0f; --fg: #e7e7ea; --muted:#9aa0a6; --line:#1f1f22;
@@ -13,8 +13,18 @@
   html,body{height:100%}
   body{margin:0; background:var(--bg); color:var(--fg); font:14px/1.6 system-ui, Apple SD Gothic Neo, Segoe UI, Roboto, Helvetica, Arial, "Apple Color Emoji","Segoe UI Emoji";}
   a{color:inherit; text-decoration:none}
-  .app{display:grid; grid-template-columns:300px 1fr; min-height:100vh}
-  .side{border-right:1px solid var(--line); padding:16px; position:sticky; top:0; height:100vh; overflow:auto}
+
+  /* Top bar */
+  .topbar{position:sticky; top:0; z-index:60; background:#0f1116; border-bottom:1px solid var(--line)}
+  .topbar__inner{max-width:1200px; margin:0 auto; padding:10px 16px; display:flex; align-items:center; justify-content:space-between}
+  .logo{font-weight:700; letter-spacing:.2px}
+  .tabs{display:flex; gap:8px}
+  .tab{padding:8px 12px; border-radius:10px; border:1px solid var(--line); background:#121215}
+  .tab[aria-selected="true"]{outline:2px solid var(--accent); border-color:transparent}
+
+  /* App split */
+  .app{display:grid; grid-template-columns:300px 1fr; min-height:100vh; max-width:1200px; margin:0 auto}
+  .side{border-right:1px solid var(--line); padding:16px; position:sticky; top:52px; height:calc(100vh - 52px); overflow:auto}
   .brand{font-weight:700; letter-spacing:.2px; margin-bottom:12px}
   .search{display:flex; gap:8px; margin:8px 0 16px}
   .search input{flex:1; padding:10px 12px; border-radius:10px; border:1px solid var(--line); background:#121215; color:var(--fg)}
@@ -35,7 +45,7 @@
   .note{color:var(--muted); font-size:12px; white-space:nowrap; overflow:hidden; text-overflow:ellipsis}
 
   /* Modal viewer */
-  .modal{position:fixed; inset:0; display:none; background:rgba(0,0,0,.8); z-index:50}
+  .modal{position:fixed; inset:0; display:none; background:rgba(0,0,0,.8); z-index:80}
   .modal.open{display:grid; grid-template-rows:auto 1fr auto}
   .modal-head, .modal-foot{display:flex; justify-content:space-between; align-items:center; padding:10px 12px; background:rgba(20,20,24,.75); backdrop-filter:saturate(140%) blur(6px)}
   .modal-body{min-height:0; display:grid; place-items:center; padding:8px}
@@ -44,20 +54,42 @@
   .nav{display:flex; gap:6px}
   .hidden{display:none !important}
 
+  /* Portfolio section */
+  .h{font-weight:700; margin:8px 0 8px}
+  .hero{padding:24px 0 8px; border-bottom:1px solid var(--line); margin-bottom:12px}
+  .hero .lead{color:var(--muted)}
+  .section{margin:18px 0}
+  .two-col{display:grid; grid-template-columns:1fr 1fr; gap:16px}
+  .list{list-style:none; padding:0; margin:0; display:grid; gap:8px}
+  .list li{border:1px solid var(--line); border-radius:12px; padding:10px 12px; background:#121215}
+
   /* mobile */
   @media (max-width: 900px){
     .app{grid-template-columns:1fr}
-    .side{position:static; height:auto}
+    .side{position:static; height:auto; top:0}
+    .two-col{grid-template-columns:1fr}
+    .topbar__inner{padding:8px 12px}
   }
 </style>
 </head>
 <body>
+<header class="topbar">
+  <div class="topbar__inner">
+    <a class="logo" href="?page=archive">영사마 | Clock Towers</a>
+    <nav class="tabs" role="tablist" aria-label="모드">
+      <a class="tab" data-page="archive" href="?page=archive" aria-selected="true">Archive</a>
+      <a class="tab" data-page="portfolio" href="?page=portfolio" aria-selected="false">Portfolio</a>
+    </nav>
+  </div>
+</header>
+
 <div class="app" id="app">
+  <!-- ARCHIVE: 좌측 탐색 -->
   <aside class="side" aria-label="탐색">
     <div class="brand">전국 시계탑 아카이브</div>
     <div class="search" role="search">
       <input id="q" type="search" placeholder="검색: 제목·메모·태그" />
-      <button class="btn" id="clear">지우기</button>
+      <button class="btn" id="clear" aria-label="검색 지우기">지우기</button>
     </div>
     <div class="view-toggle" role="tablist" aria-label="보기">
       <button class="btn active" data-view="grid" aria-selected="true">그리드</button>
@@ -66,16 +98,52 @@
     <div>
       <div style="margin:6px 0 8px; color:var(--muted)">태그</div>
       <div class="chips" id="chips"><!-- script가 채움 --></div>
-      <div class="reset" id="resetFilters">필터 초기화</div>
+      <div class="reset" id="resetFilters" role="button" tabindex="0">필터 초기화</div>
     </div>
     <div style="margin-top:18px; color:var(--muted)" class="kbd">
       단축키: / 검색 · ←/→ 이전/다음 · Esc 닫기
     </div>
   </aside>
 
+  <!-- ARCHIVE: 우측 콘텐츠 -->
   <main class="main" aria-live="polite">
     <div id="grid" class="grid" role="list"></div>
     <div id="list" class="hidden" role="list"></div>
+
+    <!-- PORTFOLIO -->
+    <section id="portfolio" class="hidden" aria-label="포트폴리오">
+      <div class="hero">
+        <h1>Clock Towers of Korea</h1>
+        <p class="lead">지역의 시간 감각과 수직 구조를 사진으로 기록하는 장기 프로젝트. 2010s–.</p>
+      </div>
+
+      <div class="section">
+        <h2 class="h">Selected Works</h2>
+        <div id="featuredGrid" class="grid"></div>
+      </div>
+
+      <div class="section">
+        <h2 class="h">Exhibitions</h2>
+        <ul class="list" id="exhibitions"></ul>
+      </div>
+
+      <div class="section two-col">
+        <div>
+          <h3 class="h">Artist Statement</h3>
+          <p>
+            전국의 시계탑은 기능적 지표이자 지역의 상징물이다. 나는 암부의 미세한 질감과 구조의 반복을 통해
+            ‘사람의 마음이 시간과 물질을 어떻게 조율하는가’를 탐색한다.
+          </p>
+        </div>
+        <div>
+          <h3 class="h">Bio / Contact</h3>
+          <p>영사마 · 사진가/아티스트</p>
+          <p>Email: <a href="mailto:you@example.com">you@example.com</a><br>
+             Instagram: <a href="https://instagram.com/yourid" target="_blank" rel="noopener">instagram.com/yourid</a></p>
+          <p><a class="btn" href="/press/presskit.zip">Press Kit 다운로드</a></p>
+        </div>
+      </div>
+    </section>
   </main>
 </div>
 
@@ -101,12 +169,6 @@
 <script>
 /** =========================================
  *  데이터: 메타 최소화(제목, 이미지, 메모, 태그)
- *  - id: 고유 슬러그(딥링크/QR)
- *  - title: 카드 제목(지명·시설명 자유)
- *  - img: 원본 또는 대형 이미지 경로
- *  - thumb: 썸네일(없으면 img 사용)
- *  - note: 짧은 문장(현장 메모/상태 등 자유기술)
- *  - tags: 탐색용 태그(선택)
  *  ========================================= */
 const ITEMS = [
   { id: "wonju-musil-park", title: "원주 무실 체육공원 시계탑", img: "/images/clock/wonju-musil-park.jpg", thumb: "/images/clock/wonju-musil-park_640.jpg", note: "생활체육 단지 입구. 야간 조명 약함.", tags:["생활체육","공원","강원"] },
@@ -114,6 +176,18 @@ const ITEMS = [
   { id: "danyang-susan", title: "단양 수산면 시계탑", img: "/images/clock/danyang-susan.jpg", note:"면사무소 인근. 작동 미확인.", tags:["관공서","충북"] },
   { id: "gangneung-univ", title: "강릉 ○○대 교정 시계", img: "/images/clock/gangneung-univ.jpg", note:"교정 중심부, 다면형.", tags:["학교","강원"] },
   // ... 필요 수 만큼 이어서 추가
+];
+
+/* 포트폴리오: 대표작 / 전시 목록 (원하는 대로 수정) */
+const FEATURED = [
+  { ref: "wonju-musil-park", title: "무실 체육공원", year: "2023", note: "생활체육 단지의 상징 구조" },
+  { ref: "yanggu-rotary",    title: "양구 로터리",   year: "2024", note: "교통 동선의 중심" },
+  { ref: "danyang-susan",    title: "단양 수산면",   year: "2024", note: "관공서 인접" },
+];
+
+const EXHIBITIONS = [
+  { when: "2026.03", where: "XX 미술관, 서울", title: "전국 시계탑", note: "개인전" },
+  { when: "2025.11", where: "OO 갤러리, 원주", title: "수직 구조의 시간", note: "그룹전" },
 ];
 
 /* -------- 상태 -------- */
@@ -132,9 +206,65 @@ const setQS = (obj)=>{
   for(const [k,v] of Object.entries(obj)){
     if(v===undefined||v===null||v==="") p.delete(k); else p.set(k,v);
   }
-  const url = location.pathname + "?" + p.toString();
+  const url = location.pathname + (p.toString() ? "?" + p.toString() : "");
   history.replaceState(null,"",url);
 };
+
+/* -------- 페이지 / 탭 -------- */
+function pageFromQS(){
+  const p = new URLSearchParams(location.search).get("page");
+  return (p==="portfolio") ? "portfolio" : "archive";
+}
+function renderTabs(){
+  const cur = pageFromQS();
+  document.querySelectorAll(".tab").forEach(a=>{
+    const active = a.dataset.page===cur;
+    a.setAttribute("aria-selected", active ? "true":"false");
+  });
+}
+function fillPortfolio(){
+  // 대표작
+  const map = new Map(ITEMS.map(x=>[x.id,x]));
+  const grid = $("#featuredGrid");
+  grid.innerHTML = "";
+  FEATURED.forEach(f=>{
+    const it = map.get(f.ref) || {};
+    const card = document.createElement("article");
+    card.className = "card";
+    const img = document.createElement("img");
+    img.className="thumb"; img.loading="lazy";
+    img.src = it.thumb || it.img || "";
+    img.alt = it.title || f.title || "";
+    img.onclick = ()=> it.id && openModalById(it.id);
+    const meta = document.createElement("div");
+    meta.className="meta";
+    meta.innerHTML = `<h3 class="title">${f.title || it.title || "Untitled"}</h3>
+                      <div class="note">${f.year || ""} — ${f.note || it.note || ""}</div>`;
+    card.appendChild(img); card.appendChild(meta);
+    grid.appendChild(card);
+  });
+  // 전시
+  const ul = $("#exhibitions");
+  ul.innerHTML = "";
+  EXHIBITIONS.forEach(e=>{
+    const li = document.createElement("li");
+    li.innerHTML = `<strong>${e.title}</strong><br>
+                    <span class="kbd">${e.when}</span> · ${e.where} · <span class="kbd">${e.note||""}</span>`;
+    ul.appendChild(li);
+  });
+}
+function renderPage(){
+  const page = pageFromQS();
+  renderTabs();
+  const isPortfolio = page==="portfolio";
+  // Archive 보이기/숨기기
+  $(".side").classList.toggle("hidden", isPortfolio);
+  // Archive main 그리드/리스트 래퍼는 main 자체이므로, 포트폴리오일 때 숨김
+  $("#grid").parentElement.classList.toggle("hidden", isPortfolio);
+  // Portfolio 토글
+  $("#portfolio").classList.toggle("hidden", !isPortfolio);
+  if(isPortfolio){ fillPortfolio(); }
+}
 
 /* -------- 태그 수집 -------- */
 const ALL_TAGS = Array.from(new Set(ITEMS.flatMap(it=>it.tags||[]))).sort();
@@ -191,7 +321,6 @@ function card(it){
   meta.innerHTML = `<h3 class="title">${it.title||"Untitled"}</h3><div class="note">${it.note||""}</div>`;
   li.appendChild(img); li.appendChild(meta);
   li.addEventListener("click", e=>{
-    // 이미지 외 영역 클릭도 열기
     if(e.target.tagName !== "IMG") openModalById(it.id);
   });
   return li;
@@ -257,7 +386,6 @@ function openModalIndex(idx, data = applyFilter()){
   mIndex.textContent = `${idx+1} / ${data.length}`;
   modal.classList.add("open");
   document.body.style.overflow = "hidden";
-  // 해시/쿼리로 딥링크
   setQS({id: it.id});
 }
 function closeModal(){
@@ -290,6 +418,7 @@ function init(){
   });
   // 필터 초기화
   $("#resetFilters").onclick = ()=>{ state.tag=""; state.q=""; setQS({q:"", tag:""}); render(); };
+  $("#resetFilters").addEventListener("keydown",(e)=>{ if(e.key==="Enter"||e.key===" "){ e.preventDefault(); $("#resetFilters").click(); } });
 
   // 단축키
   window.addEventListener("keydown",(e)=>{
@@ -304,9 +433,19 @@ function init(){
   if(id) openModalById(id);
 
   render();
+  renderPage();
+
+  // 브라우저 뒤로가기 등
+  window.addEventListener("popstate", ()=>{
+    state.q = new URLSearchParams(location.search).get("q") || "";
+    state.tag = new URLSearchParams(location.search).get("tag") || "";
+    state.view = new URLSearchParams(location.search).get("view") || "grid";
+    render();
+    renderPage();
+  });
 }
 init();
-  
+
 // 모달 버튼
 $("#close").onclick = closeModal;
 $("#next").onclick = ()=>nextItem(1);
