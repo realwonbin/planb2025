@@ -3,155 +3,84 @@
 <head>
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>전국 시계탑 아카이브 · Portfolio</title>
+<title>시계탑</title>
 <style>
-  :root {
-    --bg: #0e0e0f; --fg: #e7e7ea; --muted:#9aa0a6; --line:#1f1f22;
-    --accent:#7aa2ff; --chip:#1b1f2a;
-  }
-  *{box-sizing:border-box}
-  html,body{height:100%}
-  body{margin:0; background:var(--bg); color:var(--fg); font:14px/1.6 system-ui, Apple SD Gothic Neo, Segoe UI, Roboto, Helvetica, Arial, "Apple Color Emoji","Segoe UI Emoji";}
-  a{color:inherit; text-decoration:none}
+  :root{--bg:#0e0e0f;--fg:#e7e7ea;--muted:#9aa0a6;--line:#1f1f22;--accent:#7aa2ff;--chip:#1b1f2a}
+  *{box-sizing:border-box} html,body{height:100%}
+  body{margin:0;background:var(--bg);color:var(--fg);font:14px/1.6 system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial}
+  a{color:inherit;text-decoration:none}
+  .wrap{max-width:1100px;margin:0 auto;padding:16px}
 
   /* Top bar */
-  .topbar{position:sticky; top:0; z-index:60; background:#0f1116; border-bottom:1px solid var(--line)}
-  .topbar__inner{max-width:1200px; margin:0 auto; padding:10px 16px; display:flex; align-items:center; justify-content:space-between}
-  .logo{font-weight:700; letter-spacing:.2px}
-  .tabs{display:flex; gap:8px}
-  .tab{padding:8px 12px; border-radius:10px; border:1px solid var(--line); background:#121215}
-  .tab[aria-selected="true"]{outline:2px solid var(--accent); border-color:transparent}
+  .top{position:sticky;top:0;z-index:50;background:#0f1116;border-bottom:1px solid var(--line)}
+  .top__in{max-width:1100px;margin:0 auto;padding:10px 16px;display:flex;align-items:center;gap:12px}
+  .logo{font-weight:700}
+  .tabs{margin-left:auto;display:flex;gap:8px}
+  .tab{padding:8px 12px;border:1px solid var(--line);border-radius:10px;background:#121215}
+  .tab[aria-selected="true"]{outline:2px solid var(--accent);border-color:transparent}
 
-  /* App split */
-  .app{display:grid; grid-template-columns:300px 1fr; min-height:100vh; max-width:1200px; margin:0 auto}
-  .side{border-right:1px solid var(--line); padding:16px; position:sticky; top:52px; height:calc(100vh - 52px); overflow:auto}
-  .brand{font-weight:700; letter-spacing:.2px; margin-bottom:12px}
-  .search{display:flex; gap:8px; margin:8px 0 16px}
-  .search input{flex:1; padding:10px 12px; border-radius:10px; border:1px solid var(--line); background:#121215; color:var(--fg)}
-  .view-toggle{display:flex; gap:6px; margin-bottom:12px}
-  .btn{border:1px solid var(--line); background:#121215; color:var(--fg); padding:8px 10px; border-radius:10px; cursor:pointer}
-  .btn.active{outline:2px solid var(--accent); border-color:transparent}
-  .chips{display:flex; flex-wrap:wrap; gap:8px}
-  .chip{padding:6px 10px; border-radius:999px; background:var(--chip); border:1px solid var(--line); cursor:pointer; color:var(--muted)}
-  .chip.active{background:#1e293b; color:var(--fg); border-color:#334155}
-  .reset{margin-top:10px; color:var(--muted); cursor:pointer; text-decoration:underline}
-
-  .main{padding:16px}
-  .grid{display:grid; grid-template-columns:repeat(auto-fill,minmax(220px,1fr)); gap:10px}
-  .card{background:#121215; border:1px solid var(--line); border-radius:14px; overflow:hidden}
-  .thumb{aspect-ratio: 4/3; width:100%; object-fit:cover; display:block; background:#0a0a0b}
+  /* Gallery */
+  .grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:10px}
+  .card{background:#121215;border:1px solid var(--line);border-radius:14px;overflow:hidden;cursor:pointer}
+  .thumb{aspect-ratio:4/3;display:block;width:100%;object-fit:cover;background:#0a0a0b}
   .meta{padding:10px 12px}
-  .title{font-weight:600; margin:0 0 4px}
-  .note{color:var(--muted); font-size:12px; white-space:nowrap; overflow:hidden; text-overflow:ellipsis}
+  .title{font-weight:600;margin:0 0 4px}
+  .note{color:var(--muted);font-size:12px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 
-  /* Modal viewer */
-  .modal{position:fixed; inset:0; display:none; background:rgba(0,0,0,.8); z-index:80}
-  .modal.open{display:grid; grid-template-rows:auto 1fr auto}
-  .modal-head, .modal-foot{display:flex; justify-content:space-between; align-items:center; padding:10px 12px; background:rgba(20,20,24,.75); backdrop-filter:saturate(140%) blur(6px)}
-  .modal-body{min-height:0; display:grid; place-items:center; padding:8px}
-  .modal img{max-width:95vw; max-height:80vh; object-fit:contain}
-  .kbd{font:12px/1 monospace; color:var(--muted)}
-  .nav{display:flex; gap:6px}
-  .hidden{display:none !important}
+  /* Board */
+  .board{display:grid;gap:8px}
+  .row{display:grid;grid-template-columns:auto 1fr auto;gap:10px;align-items:center;border:1px solid var(--line);border-radius:12px;background:#121215;padding:10px 12px}
+  .badge{font-size:12px;color:var(--muted);background:var(--chip);border:1px solid var(--line);padding:3px 8px;border-radius:999px}
+  .titleL{font-weight:600}
+  .muted{color:var(--muted);font-size:12px}
+  .btn{border:1px solid var(--line);background:#121215;color:var(--fg);padding:6px 10px;border-radius:10px}
+  .row .links{display:flex;gap:6px}
+  .row .desc{color:var(--muted);margin-top:4px}
 
-  /* Portfolio section */
-  .h{font-weight:700; margin:8px 0 8px}
-  .hero{padding:24px 0 8px; border-bottom:1px solid var(--line); margin-bottom:12px}
-  .hero .lead{color:var(--muted)}
-  .section{margin:18px 0}
-  .two-col{display:grid; grid-template-columns:1fr 1fr; gap:16px}
-  .list{list-style:none; padding:0; margin:0; display:grid; gap:8px}
-  .list li{border:1px solid var(--line); border-radius:12px; padding:10px 12px; background:#121215}
+  /* Modal (image viewer) */
+  .modal{position:fixed;inset:0;display:none;background:rgba(0,0,0,.85);z-index:80}
+  .modal.open{display:grid;grid-template-rows:auto 1fr auto}
+  .modal-head,.modal-foot{display:flex;justify-content:space-between;align-items:center;padding:10px 12px;background:rgba(20,20,24,.75);backdrop-filter:saturate(140%) blur(6px)}
+  .modal-body{min-height:0;display:grid;place-items:center;padding:8px}
+  .modal img{max-width:95vw;max-height:80vh;object-fit:contain}
+  .kbd{font:12px/1 monospace;color:var(--muted)}
+  .hidden{display:none!important}
 
   /* mobile */
-  @media (max-width: 900px){
-    .app{grid-template-columns:1fr}
-    .side{position:static; height:auto; top:0}
-    .two-col{grid-template-columns:1fr}
-    .topbar__inner{padding:8px 12px}
+  @media (max-width:900px){
+    .row{grid-template-columns:1fr;gap:6px}
+    .tabs{flex-wrap:wrap}
   }
 </style>
 </head>
 <body>
-<header class="topbar">
-  <div class="topbar__inner">
-    <a class="logo" href="?page=archive">영사마 | Clock Towers</a>
-    <nav class="tabs" role="tablist" aria-label="모드">
-      <a class="tab" data-page="archive" href="?page=archive" aria-selected="true">Archive</a>
-      <a class="tab" data-page="portfolio" href="?page=portfolio" aria-selected="false">Portfolio</a>
+<header class="top">
+  <div class="top__in">
+    <a class="logo" href="#">전국 시계탑 아카이브</a>
+    <nav class="tabs" role="tablist" aria-label="보기">
+      <a class="tab" data-page="gallery" href="#gallery" aria-selected="true">이미지</a>
+      <a class="tab" data-page="board"   href="#board"   aria-selected="false">게시판</a>
     </nav>
   </div>
 </header>
 
-<div class="app" id="app">
-  <!-- ARCHIVE: 좌측 탐색 -->
-  <aside class="side" aria-label="탐색">
-    <div class="brand">전국 시계탑 아카이브</div>
-    <div class="search" role="search">
-      <input id="q" type="search" placeholder="검색: 제목·메모·태그" />
-      <button class="btn" id="clear" aria-label="검색 지우기">지우기</button>
-    </div>
-    <div class="view-toggle" role="tablist" aria-label="보기">
-      <button class="btn active" data-view="grid" aria-selected="true">그리드</button>
-      <button class="btn" data-view="list" aria-selected="false">목록</button>
-    </div>
-    <div>
-      <div style="margin:6px 0 8px; color:var(--muted)">태그</div>
-      <div class="chips" id="chips"><!-- script가 채움 --></div>
-      <div class="reset" id="resetFilters" role="button" tabindex="0">필터 초기화</div>
-    </div>
-    <div style="margin-top:18px; color:var(--muted)" class="kbd">
-      단축키: / 검색 · ←/→ 이전/다음 · Esc 닫기
-    </div>
-  </aside>
-
-  <!-- ARCHIVE: 우측 콘텐츠 -->
-  <main class="main" aria-live="polite">
+<main class="wrap">
+  <!-- GALLERY -->
+  <section id="sec-gallery" aria-label="이미지 갤러리">
     <div id="grid" class="grid" role="list"></div>
-    <div id="list" class="hidden" role="list"></div>
+  </section>
 
-    <!-- PORTFOLIO -->
-    <section id="portfolio" class="hidden" aria-label="포트폴리오">
-      <div class="hero">
-        <h1>Clock Towers of Korea</h1>
-        <p class="lead">지역의 시간 감각과 수직 구조를 사진으로 기록하는 장기 프로젝트. 2010s–.</p>
-      </div>
+  <!-- BOARD -->
+  <section id="sec-board" class="hidden" aria-label="게시판">
+    <div id="board" class="board"></div>
+  </section>
+</main>
 
-      <div class="section">
-        <h2 class="h">Selected Works</h2>
-        <div id="featuredGrid" class="grid"></div>
-      </div>
-
-      <div class="section">
-        <h2 class="h">Exhibitions</h2>
-        <ul class="list" id="exhibitions"></ul>
-      </div>
-
-      <div class="section two-col">
-        <div>
-          <h3 class="h">Artist Statement</h3>
-          <p>
-            전국의 시계탑은 기능적 지표이자 지역의 상징물이다. 나는 암부의 미세한 질감과 구조의 반복을 통해
-            ‘사람의 마음이 시간과 물질을 어떻게 조율하는가’를 탐색한다.
-          </p>
-        </div>
-        <div>
-          <h3 class="h">Bio / Contact</h3>
-          <p>영사마 · 사진가/아티스트</p>
-          <p>Email: <a href="mailto:you@example.com">you@example.com</a><br>
-             Instagram: <a href="https://instagram.com/yourid" target="_blank" rel="noopener">instagram.com/yourid</a></p>
-          <p><a class="btn" href="/press/presskit.zip">Press Kit 다운로드</a></p>
-        </div>
-      </div>
-    </section>
-  </main>
-</div>
-
-<!-- 모달(이미지 뷰어) -->
+<!-- Image Modal -->
 <div class="modal" id="modal" aria-modal="true" role="dialog" aria-label="작품 뷰어">
   <div class="modal-head">
     <div id="mTitle"></div>
-    <div class="nav">
+    <div>
       <button class="btn" id="prev" title="이전(←)">←</button>
       <button class="btn" id="next" title="다음(→)">→</button>
       <button class="btn" id="close" title="닫기(Esc)">닫기</button>
@@ -162,294 +91,144 @@
   </div>
   <div class="modal-foot">
     <div id="mNote" class="kbd"></div>
-    <div class="kbd" id="mIndex"></div>
+    <div id="mIndex" class="kbd"></div>
   </div>
 </div>
 
 <script>
-/** =========================================
- *  데이터: 메타 최소화(제목, 이미지, 메모, 태그)
- *  ========================================= */
+/* ===================== 데이터 편집 영역 ===================== */
+// 이미지 갤러리
 const ITEMS = [
-  { id: "wonju-musil-park", title: "원주 무실 체육공원 시계탑", img: "/images/clock/wonju-musil-park.jpg", thumb: "/images/clock/wonju-musil-park_640.jpg", note: "생활체육 단지 입구. 야간 조명 약함.", tags:["생활체육","공원","강원"] },
-  { id: "yanggu-rotary", title: "양구 로터리 시계", img: "/images/clock/yanggu-rotary.jpg", note:"도로 회전교차로 중앙. 차량 흐름 강함.", tags:["로터리","강원"] },
-  { id: "danyang-susan", title: "단양 수산면 시계탑", img: "/images/clock/danyang-susan.jpg", note:"면사무소 인근. 작동 미확인.", tags:["관공서","충북"] },
-  { id: "gangneung-univ", title: "강릉 ○○대 교정 시계", img: "/images/clock/gangneung-univ.jpg", note:"교정 중심부, 다면형.", tags:["학교","강원"] },
-  // ... 필요 수 만큼 이어서 추가
+  { id:"wonju-musil-park", title:"원주 무실 체육공원 시계탑", img:"images/clock/wonju-musil-park.jpg", thumb:"images/clock/wonju-musil-park_640.jpg", note:"야간 조명 약함" },
+  { id:"yanggu-rotary",    title:"양구 로터리 시계",           img:"images/clock/yanggu-rotary.jpg",                          note:"교차로 중앙" },
+  { id:"danyang-susan",    title:"단양 수산면 시계탑",         img:"images/clock/danyang-susan.jpg",                          note:"작동 미확인" },
+  { id:"gangneung-univ",   title:"강릉 ○○대 교정 시계",        img:"images/clock/gangneung-univ.jpg",                         note:"다면형" },
+  // 추가 …
 ];
 
-/* 포트폴리오: 대표작 / 전시 목록 (원하는 대로 수정) */
-const FEATURED = [
-  { ref: "wonju-musil-park", title: "무실 체육공원", year: "2023", note: "생활체육 단지의 상징 구조" },
-  { ref: "yanggu-rotary",    title: "양구 로터리",   year: "2024", note: "교통 동선의 중심" },
-  { ref: "danyang-susan",    title: "단양 수산면",   year: "2024", note: "관공서 인접" },
+// 게시판(글/링크). url 없으면 순수 노트 글.
+const POSTS = [
+  { date:"2025-10-01", title:"작업노트: 강원권 답사", desc:"원주–양구 구간 동선 체크 및 야간광량 기록.", url:null, archive:null, tag:"노트" },
+  { date:"2023-11-15", title:"빅벤 보수 완료·정규 타종 재개", desc:"해외 레퍼런스 수집용.", url:"https://www.parliament.uk/bigben", archive:"https://web.archive.org/web/20221115/https://www.parliament.uk/bigben", tag:"링크" },
+  <p>내가 쓰는 글 부분</p>
+  // 추가 …
 ];
+/* ========================================================== */
 
-const EXHIBITIONS = [
-  { when: "2026.03", where: "XX 미술관, 서울", title: "전국 시계탑", note: "개인전" },
-  { when: "2025.11", where: "OO 갤러리, 원주", title: "수직 구조의 시간", note: "그룹전" },
-];
+const $ = (s,el=document)=>el.querySelector(s);
+const $$ = (s,el=document)=>Array.from(el.querySelectorAll(s));
+const byDateDesc = (a,b)=> (b.date||"").localeCompare(a.date||"");
 
-/* -------- 상태 -------- */
-let state = {
-  q: new URLSearchParams(location.search).get("q") || "",
-  tag: new URLSearchParams(location.search).get("tag") || "",
-  view: new URLSearchParams(location.search).get("view") || "grid",
-  currentIndex: -1
-};
-
-/* -------- 유틸 -------- */
-const $ = (sel, el=document)=>el.querySelector(sel);
-const $$ = (sel, el=document)=>Array.from(el.querySelectorAll(sel));
-const setQS = (obj)=>{
-  const p = new URLSearchParams(location.search);
-  for(const [k,v] of Object.entries(obj)){
-    if(v===undefined||v===null||v==="") p.delete(k); else p.set(k,v);
-  }
-  const url = location.pathname + (p.toString() ? "?" + p.toString() : "");
-  history.replaceState(null,"",url);
-};
-
-/* -------- 페이지 / 탭 -------- */
-function pageFromQS(){
-  const p = new URLSearchParams(location.search).get("page");
-  return (p==="portfolio") ? "portfolio" : "archive";
-}
-function renderTabs(){
-  const cur = pageFromQS();
-  document.querySelectorAll(".tab").forEach(a=>{
-    const active = a.dataset.page===cur;
-    a.setAttribute("aria-selected", active ? "true":"false");
+// ---------- 탭 전환 ----------
+function setPage(page){
+  const isGallery = page==="gallery";
+  $("#sec-gallery").classList.toggle("hidden", !isGallery);
+  $("#sec-board").classList.toggle("hidden", isGallery);
+  document.querySelectorAll(".tab").forEach(t=>{
+    t.setAttribute("aria-selected", (t.dataset.page===page)?"true":"false");
   });
+  history.replaceState(null,"", page==="gallery" ? "#gallery" : "#board");
 }
-function fillPortfolio(){
-  // 대표작
-  const map = new Map(ITEMS.map(x=>[x.id,x]));
-  const grid = $("#featuredGrid");
-  grid.innerHTML = "";
-  FEATURED.forEach(f=>{
-    const it = map.get(f.ref) || {};
-    const card = document.createElement("article");
-    card.className = "card";
-    const img = document.createElement("img");
-    img.className="thumb"; img.loading="lazy";
-    img.src = it.thumb || it.img || "";
-    img.alt = it.title || f.title || "";
-    img.onclick = ()=> it.id && openModalById(it.id);
-    const meta = document.createElement("div");
-    meta.className="meta";
-    meta.innerHTML = `<h3 class="title">${f.title || it.title || "Untitled"}</h3>
-                      <div class="note">${f.year || ""} — ${f.note || it.note || ""}</div>`;
-    card.appendChild(img); card.appendChild(meta);
-    grid.appendChild(card);
-  });
-  // 전시
-  const ul = $("#exhibitions");
-  ul.innerHTML = "";
-  EXHIBITIONS.forEach(e=>{
-    const li = document.createElement("li");
-    li.innerHTML = `<strong>${e.title}</strong><br>
-                    <span class="kbd">${e.when}</span> · ${e.where} · <span class="kbd">${e.note||""}</span>`;
-    ul.appendChild(li);
-  });
-}
-function renderPage(){
-  const page = pageFromQS();
-  renderTabs();
-  const isPortfolio = page==="portfolio";
-  // Archive 보이기/숨기기
-  $(".side").classList.toggle("hidden", isPortfolio);
-  // Archive main 그리드/리스트 래퍼는 main 자체이므로, 포트폴리오일 때 숨김
-  $("#grid").parentElement.classList.toggle("hidden", isPortfolio);
-  // Portfolio 토글
-  $("#portfolio").classList.toggle("hidden", !isPortfolio);
-  if(isPortfolio){ fillPortfolio(); }
-}
-
-/* -------- 태그 수집 -------- */
-const ALL_TAGS = Array.from(new Set(ITEMS.flatMap(it=>it.tags||[]))).sort();
-
-/* -------- 렌더: 태그칩 -------- */
-function renderChips(){
-  const box = $("#chips");
-  box.innerHTML = "";
-  ALL_TAGS.forEach(t=>{
-    const b = document.createElement("button");
-    b.className = "chip" + (state.tag===t?" active":"");
-    b.textContent = t;
-    b.setAttribute("aria-pressed", state.tag===t ? "true":"false");
-    b.onclick = ()=>{
-      state.tag = (state.tag===t) ? "" : t;
-      setQS({tag: state.tag});
-      render();
-    };
-    box.appendChild(b);
+function initTabs(){
+  const hash = location.hash.replace("#","");
+  setPage(hash==="board" ? "board" : "gallery");
+  $$(".tab").forEach(t=> t.addEventListener("click",(e)=>{
+    e.preventDefault();
+    setPage(t.dataset.page);
+  }));
+  window.addEventListener("hashchange",()=>{
+    const h = location.hash.replace("#","");
+    setPage(h==="board"?"board":"gallery");
   });
 }
 
-/* -------- 필터링 -------- */
-function applyFilter(){
-  let out = ITEMS.slice();
-  if(state.q){
-    const q = state.q.toLowerCase();
-    out = out.filter(it=>{
-      return (it.title||"").toLowerCase().includes(q)
-          || (it.note||"").toLowerCase().includes(q)
-          || (it.tags||[]).some(x=>x.toLowerCase().includes(q));
-    });
-  }
-  if(state.tag){
-    out = out.filter(it=>(it.tags||[]).includes(state.tag));
-  }
-  return out;
-}
-
-/* -------- 카드/목록 -------- */
+// ---------- 갤러리 렌더 ----------
 function card(it){
-  const li = document.createElement("article");
-  li.className="card";
-  li.setAttribute("role","listitem");
-  const img = document.createElement("img");
-  img.className="thumb";
-  img.loading="lazy";
-  img.alt = it.title || "";
-  img.src = it.thumb || it.img;
-  img.decoding = "async";
-  img.onclick = ()=>openModalById(it.id);
-  const meta = document.createElement("div");
-  meta.className="meta";
+  const el = document.createElement("article");
+  el.className="card"; el.setAttribute("role","listitem");
+  const im = document.createElement("img");
+  im.className="thumb"; im.loading="lazy"; im.decoding="async";
+  im.src = it.thumb || it.img; im.alt = it.title||"";
+  const meta = document.createElement("div"); meta.className="meta";
   meta.innerHTML = `<h3 class="title">${it.title||"Untitled"}</h3><div class="note">${it.note||""}</div>`;
-  li.appendChild(img); li.appendChild(meta);
-  li.addEventListener("click", e=>{
-    if(e.target.tagName !== "IMG") openModalById(it.id);
-  });
-  return li;
+  el.appendChild(im); el.appendChild(meta);
+  el.addEventListener("click", ()=>openModalById(it.id));
+  return el;
 }
-function row(it){
-  const div = document.createElement("div");
-  div.className="card";
-  const meta = document.createElement("div");
-  meta.className="meta";
-  meta.innerHTML = `<h3 class="title">${it.title||"Untitled"}</h3>
-    <div class="note">${(it.tags||[]).join(" · ")}${(it.note? " — "+it.note:"")}</div>`;
-  div.appendChild(meta);
-  div.addEventListener("click", ()=>openModalById(it.id));
-  return div;
+function renderGallery(){
+  const grid = $("#grid"); grid.innerHTML="";
+  ITEMS.forEach(it=> grid.appendChild(card(it)));
 }
 
-/* -------- 렌더 전체 -------- */
-function render(){
-  $("#q").value = state.q;
-  $$(".view-toggle .btn").forEach(b=>{
-    const active = b.dataset.view===state.view;
-    b.classList.toggle("active", active);
-    b.setAttribute("aria-selected", active?"true":"false");
-  });
-
-  const data = applyFilter();
-  const grid = $("#grid"), list=$("#list");
-  grid.classList.toggle("hidden", state.view!=="grid");
-  list.classList.toggle("hidden", state.view!=="list");
-  grid.innerHTML = ""; list.innerHTML="";
-
-  if(state.view==="grid"){
-    data.forEach(it=> grid.appendChild(card(it)));
-  }else{
-    data.forEach(it=> list.appendChild(row(it)));
-  }
-  renderChips();
-
-  // 모달 내 현재 인덱스 재정렬
-  if(state.currentIndex>=0){
-    const id = ITEMS[state.currentIndex]?.id;
-    const idx = data.findIndex(x=>x.id===id);
-    if(idx===-1) closeModal();
-  }
+// ---------- 게시판 렌더 ----------
+function row(p){
+  const el = document.createElement("div");
+  el.className="row";
+  const left = document.createElement("span");
+  left.className="badge"; left.textContent = p.tag || "노트";
+  const mid = document.createElement("div");
+  mid.innerHTML = `<div class="titleL">${p.title}</div>${p.desc? `<div class="desc">${p.desc}</div>`: ""}`;
+  const right = document.createElement("div");
+  right.className="links";
+  if(p.url){ const a=document.createElement("a"); a.className="btn"; a.href=p.url; a.target="_blank"; a.rel="noopener"; a.textContent="원문"; right.appendChild(a); }
+  if(p.archive){ const a=document.createElement("a"); a.className="btn"; a.href=p.archive; a.target="_blank"; a.rel="noopener"; a.textContent="아카이브"; right.appendChild(a); }
+  const date = document.createElement("div");
+  date.className="muted"; date.style.marginLeft="8px"; date.textContent = p.date || "";
+  const wrapR = document.createElement("div");
+  wrapR.style.display="flex"; wrapR.style.alignItems="center"; wrapR.style.gap="6px";
+  wrapR.appendChild(right); wrapR.appendChild(date);
+  el.appendChild(left); el.appendChild(mid); el.appendChild(wrapR);
+  return el;
+}
+function renderBoard(){
+  const box = $("#board"); box.innerHTML="";
+  POSTS.sort(byDateDesc).forEach(p=> box.appendChild(row(p)));
 }
 
-/* -------- 모달 -------- */
-const modal = $("#modal"), mImg=$("#mImg"), mTitle=$("#mTitle"), mNote=$("#mNote"), mIndex=$("#mIndex");
+// ---------- 이미지 모달 ----------
+let current = -1; // ITEMS index
+const modal=$("#modal"), mImg=$("#mImg"), mTitle=$("#mTitle"), mNote=$("#mNote"), mIndex=$("#mIndex");
 function openModalById(id){
-  const data = applyFilter();
-  const idx = data.findIndex(it=>it.id===id);
-  if(idx<0 && data.length) return openModalIndex(0);
-  openModalIndex(idx, data);
+  const idx = ITEMS.findIndex(x=>x.id===id);
+  openModalIndex(idx>=0?idx:0);
 }
-function openModalIndex(idx, data = applyFilter()){
-  const it = data[idx];
-  if(!it) return;
-  state.currentIndex = ITEMS.findIndex(x=>x.id===it.id); // 전역 인덱스 유지
-  mImg.src = it.img;
-  mImg.alt = it.title||"";
-  mTitle.textContent = it.title||"";
-  mNote.textContent = it.note||"";
-  mIndex.textContent = `${idx+1} / ${data.length}`;
+function openModalIndex(i){
+  const it = ITEMS[i]; if(!it) return;
+  current = i;
+  mImg.src = it.img; mImg.alt = it.title||"";
+  mTitle.textContent = it.title||""; mNote.textContent = it.note||"";
+  mIndex.textContent = `${i+1} / ${ITEMS.length}`;
   modal.classList.add("open");
-  document.body.style.overflow = "hidden";
-  setQS({id: it.id});
+  document.body.style.overflow="hidden";
 }
 function closeModal(){
   modal.classList.remove("open");
-  document.body.style.overflow = "";
-  state.currentIndex = -1;
-  setQS({id:""});
+  document.body.style.overflow="";
 }
-function nextItem(step=1){
-  const data = applyFilter();
-  if(!data.length) return;
-  const curId = new URLSearchParams(location.search).get("id");
-  let idx = Math.max(0, data.findIndex(it=>it.id===curId));
-  idx = (idx + step + data.length) % data.length;
-  openModalById(data[idx].id);
+function next(step=1){
+  if(!ITEMS.length) return;
+  const i = ( (current<0?0:current) + step + ITEMS.length ) % ITEMS.length;
+  openModalIndex(i);
 }
+$("#close").onclick = closeModal;
+$("#next").onclick = ()=>next(1);
+$("#prev").onclick = ()=>next(-1);
+window.addEventListener("keydown",(e)=>{
+  if(e.key==="Escape") closeModal();
+  if(e.key==="ArrowRight") next(1);
+  if(e.key==="ArrowLeft") next(-1);
+});
 
-/* -------- 초기화 -------- */
+// ---------- init ----------
 function init(){
-  // 검색
-  $("#q").addEventListener("input", (e)=>{
-    state.q = e.target.value;
-    setQS({q: state.q});
-    render();
-  });
-  $("#clear").onclick = ()=>{ state.q=""; setQS({q:""}); render(); };
-  // 보기 토글
-  $$(".view-toggle .btn").forEach(b=>{
-    b.onclick = ()=>{ state.view = b.dataset.view; setQS({view: state.view}); render(); };
-  });
-  // 필터 초기화
-  $("#resetFilters").onclick = ()=>{ state.tag=""; state.q=""; setQS({q:"", tag:""}); render(); };
-  $("#resetFilters").addEventListener("keydown",(e)=>{ if(e.key==="Enter"||e.key===" "){ e.preventDefault(); $("#resetFilters").click(); } });
-
-  // 단축키
-  window.addEventListener("keydown",(e)=>{
-    if(e.key==="/"){ e.preventDefault(); $("#q").focus(); $("#q").select(); }
-    if(e.key==="Escape") closeModal();
-    if(e.key==="ArrowRight") nextItem(1);
-    if(e.key==="ArrowLeft") nextItem(-1);
-  });
-
-  // URL 파라미터로 모달 직행(QR 라벨 연결)
+  initTabs();
+  renderGallery();
+  renderBoard();
+  // 해시 없이 특정 작품을 열려면 ?id=slug 지원(선택)
   const id = new URLSearchParams(location.search).get("id");
-  if(id) openModalById(id);
-
-  render();
-  renderPage();
-
-  // 브라우저 뒤로가기 등
-  window.addEventListener("popstate", ()=>{
-    state.q = new URLSearchParams(location.search).get("q") || "";
-    state.tag = new URLSearchParams(location.search).get("tag") || "";
-    state.view = new URLSearchParams(location.search).get("view") || "grid";
-    render();
-    renderPage();
-  });
+  if(id){ openModalById(id); }
 }
 init();
-
-// 모달 버튼
-$("#close").onclick = closeModal;
-$("#next").onclick = ()=>nextItem(1);
-$("#prev").onclick = ()=>nextItem(-1);
 </script>
 </body>
 </html>
