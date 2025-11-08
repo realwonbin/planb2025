@@ -1,0 +1,40 @@
+/* Document-style sequence for each chapter */
+
+.doc-sequence {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  margin-bottom: 26px;
+}
+
+.doc-item {
+  margin: 0;
+  padding: 10px;
+  border-radius: 8px;
+  background: var(--bg-soft);
+  border: 1px solid var(--border);
+}
+
+.doc-item img {
+  width: 100%;
+  display: block;
+  border-radius: 4px;
+  object-fit: cover;
+}
+
+.doc-caption {
+  margin-top: 4px;
+  font-size: 9px;
+  color: var(--muted);
+}
+
+/* installation views 강조용 */
+
+.doc-item.installation {
+  background: #050608;
+  border-style: dashed;
+  border-color: #353841;
+}
+.doc-item.installation .doc-caption {
+  color: var(--accent);
+}
