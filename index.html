@@ -1,100 +1,71 @@
 <!DOCTYPE html>
 <html lang="ko">
 <head>
-<meta charset="utf-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>시계탑</title>
-<style>
-  :root{--bg:#0e0e0f;--fg:#e7e7ea;--muted:#9aa0a6;--line:#1f1f22;--accent:#7aa2ff;--chip:#1b1f2a}
-  *{box-sizing:border-box} html,body{height:100%}
-  body{margin:0;background:var(--bg);color:var(--fg);font:14px/1.6 system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial}
-  a{color:inherit;text-decoration:none}
-  .wrap{max-width:1100px;margin:0 auto;padding:16px}
-
-  /* Top bar */
-  .top{position:sticky;top:0;z-index:50;background:#0f1116;border-bottom:1px solid var(--line)}
-  .top__in{max-width:1100px;margin:0 auto;padding:10px 16px;display:flex;align-items:center;gap:12px}
-  .logo{font-weight:700}
-  .tabs{margin-left:auto;display:flex;gap:8px}
-  .tab{padding:8px 12px;border:1px solid var(--line);border-radius:10px;background:#121215}
-  .tab[aria-selected="true"]{outline:2px solid var(--accent);border-color:transparent}
-
-  /* Gallery */
-  .grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:10px}
-  .card{background:#121215;border:1px solid var(--line);border-radius:14px;overflow:hidden;cursor:pointer}
-  .thumb{aspect-ratio:4/3;display:block;width:100%;object-fit:cover;background:#0a0a0b}
-  .meta{padding:10px 12px}
-  .title{font-weight:600;margin:0 0 4px}
-  .note{color:var(--muted);font-size:12px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-
-  /* Board */
-  .board{display:grid;gap:8px}
-  .row{display:grid;grid-template-columns:auto 1fr auto;gap:10px;align-items:center;border:1px solid var(--line);border-radius:12px;background:#121215;padding:10px 12px}
-  .badge{font-size:12px;color:var(--muted);background:var(--chip);border:1px solid var(--line);padding:3px 8px;border-radius:999px}
-  .titleL{font-weight:600}
-  .muted{color:var(--muted);font-size:12px}
-  .btn{border:1px solid var(--line);background:#121215;color:var(--fg);padding:6px 10px;border-radius:10px}
-  .row .links{display:flex;gap:6px}
-  .row .desc{color:var(--muted);margin-top:4px}
-
-  /* Modal (image viewer) */
-  .modal{position:fixed;inset:0;display:none;background:rgba(0,0,0,.85);z-index:80}
-  .modal.open{display:grid;grid-template-rows:auto 1fr auto}
-  .modal-head,.modal-foot{display:flex;justify-content:space-between;align-items:center;padding:10px 12px;background:rgba(20,20,24,.75);backdrop-filter:saturate(140%) blur(6px)}
-  .modal-body{min-height:0;display:grid;place-items:center;padding:8px}
-  .modal img{max-width:95vw;max-height:80vh;object-fit:contain}
-  .kbd{font:12px/1 monospace;color:var(--muted)}
-  .hidden{display:none!important}
-
-  /* mobile */
-  @media (max-width:900px){
-    .row{grid-template-columns:1fr;gap:6px}
-    .tabs{flex-wrap:wrap}
-  }
-</style>
+  <meta charset="UTF-8">
+  <title>Exhibition Title</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="style.css">
 </head>
 <body>
-<header class="top">
-  <div class="top__in">
-    <a class="logo" href="#">시계탑</a>
-    <nav class="tabs" role="tablist" aria-label="보기">
-      <a class="tab" data-page="gallery" href="#gallery" aria-selected="true">이미지</a>
-      <a class="tab" data-page="board"   href="#board"   aria-selected="false">게시판</a>
-    </nav>
-  </div>
-</header>
-
-<main class="wrap">
-  <!-- GALLERY -->
-  <section id="sec-gallery" aria-label="이미지 갤러리">
-    <div id="grid" class="grid" role="list"></div>
-  </section>
-
-  <!-- BOARD -->
-  <section id="sec-board" class="hidden" aria-label="게시판">
-    <div id="board" class="board"></div>
-  </section>
-</main>
-
-<!-- Image Modal -->
-<div class="modal" id="modal" aria-modal="true" role="dialog" aria-label="작품 뷰어">
-  <div class="modal-head">
-    <div id="mTitle"></div>
+<div class="wrapper">
+  <header>
     <div>
-      <button class="btn" id="prev" title="이전(←)">←</button>
-      <button class="btn" id="next" title="다음(→)">→</button>
-      <button class="btn" id="close" title="닫기(Esc)">닫기</button>
+      <div class="site-title">
+        <a href="/">Exhibition Title</a>
+      </div>
+      <div class="site-subtitle">
+        Two bodies of work as one exhibition structure
+      </div>
     </div>
-  </div>
-  <div class="modal-body">
-    <img id="mImg" alt="" />
-  </div>
-  <div class="modal-foot">
-    <div id="mNote" class="kbd"></div>
-    <div id="mIndex" class="kbd"></div>
-  </div>
-</div>
+    <nav>
+      <a href="/chapter-a.html">Chapter I</a>
+      <a href="/chapter-b.html">Chapter II</a>
+      <a href="/texts.html">Texts</a>
+      <a href="/about.html">About</a>
+    </nav>
+  </header>
 
-<script src="clock-app.js" defer></script>
+  <main>
+    <div class="page">
+      <section class="hero">
+        <h1 class="hero-title">Exhibition Title</h1>
+        <p class="hero-subtitle">
+          두 개의 포트폴리오가 하나의 구조로 읽히도록 만드는 전시의 개괄을 여기에 간단히 적는다.
+        </p>
+        <div class="hero-keywords">
+          <span>TIME</span>
+          <span>SURFACE</span>
+          <span>STRUCTURE</span>
+          <span>TRACE</span>
+        </div>
+      </section>
+
+      <section class="hero-images">
+        <!-- 포트폴리오 A/B에서 가져온 대표 이미지로 교체 -->
+        <div class="img-placeholder"></div>
+        <div class="img-placeholder"></div>
+        <div class="img-placeholder"></div>
+        <div class="img-placeholder"></div>
+      </section>
+
+      <section class="intro-text">
+        <p>
+          전시 전체를 관통하는 3~5문장 정도의 서문 요약을 배치한다.
+          두 포트폴리오가 어떻게 서로를 해석하고, 어떤 구조를 이루는지 간결하게 제시하는 구간이다.
+        </p>
+      </section>
+
+      <section class="chapters-links">
+        <a href="/chapter-a.html">Chapter I &mdash; 포트폴리오 A 제목</a>
+        <a href="/chapter-b.html">Chapter II &mdash; 포트폴리오 B 제목</a>
+      </section>
+    </div>
+  </main>
+
+  <footer>
+    <span>© Your Name</span>
+    <span>Exhibition web edition</span>
+  </footer>
+</div>
 </body>
 </html>
