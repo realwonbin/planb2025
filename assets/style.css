@@ -31,7 +31,7 @@ body {
 }
 
 body {
-  background: radial-gradient(circle at top, #151821 0, #050608 52%, #020306 100%);
+  background: #0d0d0d;
   color: var(--ink);
   font-family: var(--font-sans);
   font-size: 15px;
@@ -47,10 +47,10 @@ a:hover {
   text-decoration: underline;
 }
 
-.wrapper {
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
+.wrapper,
+.page,
+main {
+  background: #0d0d0d !important;
 }
 
 /* ========== Header ========== */
