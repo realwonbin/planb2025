@@ -1,4 +1,4 @@
-// assets/render.js
+// /assets/render.js
 import { CHAPTERS } from "./chapters.js";
 
 document.addEventListener("DOMContentLoaded", () => {
@@ -22,7 +22,7 @@ document.addEventListener("DOMContentLoaded", () => {
         const fig = document.createElement("figure");
         fig.className = "img-item";
         fig.innerHTML = `
-          <img src="assets/${item.src}">
+          <img src="/images/${item.src}">
           <figcaption>${item.cap}</figcaption>
         `;
         grid.appendChild(fig);
@@ -42,7 +42,7 @@ document.addEventListener("DOMContentLoaded", () => {
       const fig = document.createElement("figure");
       fig.className = "install-block";
       fig.innerHTML = `
-        <img src="assets/${block.src}">
+        <img src="/images/${block.src}">
         <figcaption>${block.cap}</figcaption>
       `;
       container.appendChild(fig);
