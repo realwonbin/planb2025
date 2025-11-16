@@ -90,3 +90,11 @@ footer {
   text-align: center;
   color: #444;
 }
+.img-grid img {
+  width: 100%;
+  height: auto;
+  object-fit: contain;
+}
+.img-item {
+  overflow: visible;
+}
