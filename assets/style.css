@@ -1,52 +1,29 @@
-/* 기본 설정 */
 body {
   margin: 0;
   padding: 0;
   background: #0d0d0d;
-  color: #eee;
+  color: #e5e5e5;
   font-family: -apple-system, BlinkMacSystemFont, sans-serif;
-  line-height: 1.6;
 }
 
-a {
-  color: #ddd;
-  text-decoration: none;
-}
+a { color: #e5e5e5; text-decoration: none; }
 
-/* 상단 네비 */
 .top-nav {
-  padding: 20px;
   display: flex;
   justify-content: space-between;
-  align-items: center;
+  padding: 20px 30px;
 }
 
-.site-title {
-  font-weight: 600;
-}
-
-/* 챕터 구조 */
 .chapter-wrapper {
   max-width: 1100px;
-  margin: 0 auto;
+  margin: auto;
   padding: 40px 20px;
 }
 
-.chapter-title {
-  font-size: 2rem;
-  margin-bottom: 10px;
-}
-
-.chapter-description {
-  margin-bottom: 40px;
-  opacity: 0.9;
-}
-
-/* 이미지 그리드 */
 .img-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-  gap: 32px;
+  grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+  gap: 28px;
   margin: 60px 0;
 }
 
@@ -56,40 +33,20 @@ a {
   display: block;
 }
 
-/* 텍스트 블록 */
 .text-block {
   max-width: 700px;
-  margin: 80px auto;
+  margin: 70px auto;
   line-height: 1.7;
-  font-size: 1.05rem;
 }
 
-/* 설치사진 */
-.install-block {
-  text-align: center;
-  margin: 100px 0 60px;
-}
-
-.install-block img {
+.install img {
   width: 100%;
   height: auto;
-  max-width: 900px;
+  margin-top: 80px;
 }
 
-/* 하단 네비 */
-.chapter-nav {
-  text-align: center;
-  margin: 80px 0;
-}
-
-.chapter-nav a {
-  margin: 0 15px;
-}
-
-/* 푸터 */
 .footer {
-  padding: 40px 0;
   text-align: center;
-  font-size: 0.9rem;
-  color: #777;
+  padding: 40px;
+  opacity: 0.6;
 }
