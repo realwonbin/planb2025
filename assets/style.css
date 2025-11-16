@@ -1,100 +1,95 @@
+/* 기본 설정 */
 body {
-  background: #0c0c0c;
-  color: #ddd;
   margin: 0;
+  padding: 0;
+  background: #0d0d0d;
+  color: #eee;
   font-family: -apple-system, BlinkMacSystemFont, sans-serif;
+  line-height: 1.6;
 }
 
-.wrapper {
-  width: 100%;
-  margin: 0 auto;
+a {
+  color: #ddd;
+  text-decoration: none;
 }
 
-.header {
-  padding: 24px 28px;
+/* 상단 네비 */
+.top-nav {
+  padding: 20px;
   display: flex;
   justify-content: space-between;
   align-items: center;
 }
 
-.header a {
-  color: #ccc;
-  margin-left: 16px;
-  text-decoration: none;
-}
-
 .site-title {
-  font-size: 1.1rem;
   font-weight: 600;
-  color: #fff;
 }
 
-.index-main {
-  padding: 40px 0;
+/* 챕터 구조 */
+.chapter-wrapper {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 40px 20px;
 }
 
-.index-intro {
-  max-width: 620px;
-  margin: 0 auto 60px;
-  line-height: 1.7;
+.chapter-title {
+  font-size: 2rem;
+  margin-bottom: 10px;
 }
 
-.index-chapters {
-  display: flex;
-  gap: 40px;
-  justify-content: center;
+.chapter-description {
+  margin-bottom: 40px;
+  opacity: 0.9;
 }
 
-.chapter-card {
-  width: 360px;
-  text-decoration: none;
-  color: #ddd;
-}
-
-.chapter-card img {
-  width: 100%;
-  border-radius: 3px;
-}
-
-.chapter-label {
-  margin-top: 8px;
-  text-align: center;
-}
-
-
+/* 이미지 그리드 */
 .img-grid {
-  margin: 60px 0;
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(360px, 1fr));
-  gap: 28px;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 32px;
+  margin: 60px 0;
 }
 
+.img-grid img {
+  width: 100%;
+  height: auto;
+  display: block;
+}
+
+/* 텍스트 블록 */
 .text-block {
-  max-width: 620px;
+  max-width: 700px;
   margin: 80px auto;
-  font-size: 1.05rem;
   line-height: 1.7;
+  font-size: 1.05rem;
 }
 
+/* 설치사진 */
 .install-block {
-  max-width: 860px;
-  margin: 120px auto 80px;
+  text-align: center;
+  margin: 100px 0 60px;
 }
 
 .install-block img {
   width: 100%;
+  height: auto;
+  max-width: 900px;
 }
 
-footer {
-  padding: 40px;
+/* 하단 네비 */
+.chapter-nav {
   text-align: center;
-  color: #444;
+  margin: 80px 0;
 }
-.img-grid img {
-  width: 100%;
-  height: auto;
-  object-fit: contain;
+
+.chapter-nav a {
+  margin: 0 15px;
 }
-.img-item {
-  overflow: visible;
+
+/* 푸터 */
+.footer {
+  padding: 40px 0;
+  text-align: center;
+  font-size: 0.9rem;
+  color: #777;
 }
