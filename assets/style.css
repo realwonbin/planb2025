@@ -396,3 +396,7 @@ footer {
   font-size: 1.05rem;
   text-align: left;
 }
+
+.hidden-gallery {
+  display: none;
+}
