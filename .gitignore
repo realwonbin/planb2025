@@ -1,0 +1,11 @@
+# macOS system files
+.DS_Store
+
+# Python cache files
+__pycache__/
+*.pyc
+
+양구군제안서.pdf
+전시방향제안서.pages
+/backup
+/backup2
